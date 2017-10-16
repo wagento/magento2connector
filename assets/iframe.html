@@ -1,0 +1,258 @@
+<!--
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+ -->
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="https://cdn.jsdelivr.net/bootstrap/2.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/fontawesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
+</head>
+<body>
+<div id="content"></div>
+<footer></footer>
+
+<script id="customer-order-template" type="text/x-handlebars-template">
+
+    <div class="section" id="customer-information">
+
+        <div class="section-title">
+            <i class="fa fa-user-circle fa-lg user-icon"></i>
+            <span class="title">{{firstname}} {{lastname}}</span>
+        </div>
+
+        <div class="section-content">
+            <table class="table-secondary">
+                <tbody>
+                <tr>
+                    <th>Email</th>
+                    <td><a href="mailto:{{email}}">{{email}}</a></td>
+                </tr>
+                <tr>
+                    <th>Lifetime Sales</th>
+                    <td>{{lifetime_sales}}</td>
+                </tr>
+                <tr>
+                    <th>Customer Group</th>
+                    <td>{{group}}</td>
+                </tr>
+                <tr>
+                    <th>Customer Since</th>
+                    <td>{{created_at}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="section" id="order-information">
+
+        <div class="section-title">
+            <i class="fa fa-calendar fa-lg user-icon" aria-hidden="true"></i>
+            <span class="title">Recent Orders</span>
+        </div>
+
+        <div class="section-content">
+            {{#if orders}}
+            <div class="section-item-content">
+                <div class="accordion" id="orders-accordion">
+                    {{#each orders}}
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <div class="accordion-toggle" data-toggle="collapse" data-parent="#orders-accordion"
+                                 data-target="#collapse{{increment_id}}">
+                                <strong>#{{increment_id}}</strong>
+                                <span class="badge badge-info">{{status}}</span>
+                            </div>
+                        </div>
+
+                        <div id="collapse{{increment_id}}" class="show-all accordion-body collapse">
+
+                            <div class="accordion-inner">
+                                <div class="section">
+                                    <div class="section-item">
+                                        <div class="section-item-title">
+                                            <i class="fa fa-tags" aria-hidden="true"></i>
+                                            <span class="title">Tags</span>
+                                        </div>
+                                        <div class="section-item-content">
+                                            <span class="badge badge-warning">{{created_at}}</span>
+                                            <span class="badge badge-warning">{{store_name}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section">
+                                    <div class="section-item order-billing-address">
+                                        <div class="section-item-title">
+                                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                                            <span class="title">Billing Address</span>
+                                        </div>
+                                        <div class="section-item-content">
+                                            {{{billing_address}}}
+                                        </div>
+                                    </div>
+
+                                    <div class="section-item order-shipping-address">
+                                        <div class="section-item-title">
+                                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                                            <span class="title">Shipping Address</span>
+                                        </div>
+                                        <div class="section-item-content">
+                                            {{{shipping_address}}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section">
+                                    <div class="section-item order-payment-method">
+                                        <div class="section-item-title">
+                                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                                            <span class="title">Payment Method</span>
+                                        </div>
+                                        <div class="section-item-content">
+                                            {{payment_method}}
+                                        </div>
+                                    </div>
+
+                                    <div class="section-item order-shipping-method">
+                                        <div class="section-item-title">
+                                            <i class="fa fa-truck" aria-hidden="true"></i>
+                                            <span class="title">Shipping Method</span>
+                                        </div>
+                                        <div class="section-item-content">
+                                            {{shipping_method}}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="section">
+                                    <div class="section-item order-totals">
+                                        <div class="section-item-title">
+                                            <i class="fa fa-money" aria-hidden="true"></i>
+                                            <span class="title">Order Totals</span>
+                                        </div>
+                                        <table class="data-table table-secondary order-subtotal-table">
+                                            <tfoot>
+                                            <tr class="col-0">
+                                                <td><strong>Grand Total</strong></td>
+                                                <td><strong>{{grand_total}}</strong></td>
+                                            </tr>
+                                            <tr class="col-1">
+                                                <td><strong>Total Paid</strong></td>
+                                                <td><strong>{{total_paid}}</strong></td>
+                                            </tr>
+                                            <tr class="col-2">
+                                                <td><strong>Total Refunded</strong></td>
+                                                <td><strong>{{total_refunded}}</strong></td>
+                                            </tr>
+                                            <tr class="col-3">
+                                                <td><strong>Total Due</strong></td>
+                                                <td><strong>{{total_due}}</strong></td>
+                                            </tr>
+
+                                            </tfoot>
+
+                                            <tbody>
+                                            <tr class="col-0">
+                                                <td>Subtotal</td>
+                                                <td><span>{{subtotal}}</span></td>
+                                            </tr>
+                                            <tr class="col-1">
+                                                <td>Shipping &amp; Handling</td>
+                                                <td><span>{{shipping_amount}}</span></td>
+                                            </tr>
+                                            <tr class="col-2">
+                                                <td>Discount</td>
+                                                <td><span>{{discount_amount}}</span></td>
+                                            </tr>
+                                            <tr class="col-3">
+                                                <td>Tax</td>
+                                                <td><span>{{tax_amount}}</span></td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="section">
+                                    <div class="section-item-title">
+                                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                                        <span class="title">Items Ordered</span>
+                                    </div>
+                                    <div class="table-wrapper">
+                                        <table class="table data-table table-primary order-items-table">
+                                            <thead>
+                                            <tr class="headings">
+                                                <th class="col-product"><span>Product</span></th>
+                                                <th class="col-sku"><span>Sku</span></th>
+                                                <th class="col-status"><span>Status</span></th>
+                                                <th class="col-price-original"><span>Original Price</span></th>
+                                                <th class="col-price"><span>Price</span></th>
+                                                <th class="col-ordered-qty"><span>Qty</span></th>
+                                                <th class="col-subtotal"><span>Subtotal</span></th>
+                                                <th class="col-tax-amount"><span>Tax Amount</span></th>
+                                                <th class="col-tax-percent"><span>Tax Percent</span></th>
+                                                <th class="col-discont"><span>Discount Amount</span></th>
+                                                <th class="col-total last"><span>Row Total</span></th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            {{#each items}}
+                                            <tr>
+                                                <td class="col-product">{{name}}</td>
+                                                <td class="col-sku">{{sku}}</td>
+                                                <td class="col-status">{{status}}</td>
+                                                <td class="col-price-original">{{original_price}}</td>
+                                                <td class="col-price">{{price}}</td>
+                                                <td class="col-ordered-qty">{{qty_ordered}}</td>
+                                                <td class="col-subtotal">{{subtotal}}</td>
+                                                <td class="col-tax-amount">{{tax_amount}}</td>
+                                                <td class="col-tax-percent">{{tax_percent}}%</td>
+                                                <td class="col-discont">{{discount}}</td>
+                                                <td class="col-total last">{{total}}</td>
+                                            </tr>
+                                            {{/each}}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+            {{else}}
+            <div class="alert alert-block">
+                <i class="fa fa-exclamation-triangle fa-lg"></i>
+                No orders found
+            </div>
+            {{/if}}
+        </div>
+    </div>
+</script>
+
+<script id="error-customer-not-found" type="text/x-handlebars-template">
+    <div class="alert alert-block">
+        <i class="fa fa-exclamation-triangle fa-lg"></i>
+        Customer not found
+    </div>
+</script>
+
+<script id="loading-information" type="text/x-handlebars-template">
+    <div class="alert alert-info">
+        <i class="fa fa-spinner fa-spin fa-lg"></i>
+        Retrieving information
+    </div>
+</script>
+
+<script src="https://cdn.jsdelivr.net/g/lodash@4.3.0,handlebarsjs@4.0.5,jquery@2.2.0,momentjs@2.9.0,bootstrap@2.3.2"></script>
+<script type="text/javascript" src="https://assets.zendesk.com/apps/sdk/2.0/zaf_sdk.js"></script>
+<script type="text/javascript" src="main.js"></script>
+
+</body>
+</html>

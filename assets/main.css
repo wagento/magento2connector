@@ -1,0 +1,99 @@
+/**
+ * Copyright Wagento Creative LLC ©, All rights reserved.
+ * See COPYING.txt for license details.
+ */
+body {
+    color: #41362f;
+    font-weight: 400;
+    font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-style: normal;
+    font-size: 14px;
+}
+
+a:hover,
+a {
+    color: #30aabc;
+}
+
+.section {
+    margin-bottom: 20px;
+    display: inline-block;
+    width: 100%;
+}
+
+#order-information {
+    margin-bottom: 0;
+}
+
+.section-title {
+    /*border-bottom: 1px solid #cccccc;*/
+    /*     margin-bottom: 17px; */
+    padding: 0 0 10px;
+    color: #30aabc;
+}
+
+.section-title strong,
+.section-title .title {
+    text-align: left;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.section-item-title,
+.section-item-title .title {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+
+.table,
+.table-secondary th,
+.table-secondary td {
+    padding: 0.5rem;
+    font-size: 14px;
+    text-align: left;
+    width: 100%;
+}
+
+.table-secondary tbody tr:nth-child(odd) th,
+.table-secondary tbody tr:nth-child(odd) td {
+    background-color: #f1f1f1;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    width: 100%;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    -webkit-overflow-scrolling: touch;
+
+    -webkit-box-shadow: inset 0 0 50px -20px rgba(0, 0, 0, 0.57);
+    -moz-box-shadow: inset 0 0 50px -20px rgba(0, 0, 0, 0.57);
+    box-shadow: inset 0 0 50px -20px rgba(0, 0, 0, 0.57);
+}
+
+.order-billing-address,
+.order-billing-method,
+.order-history,
+.order-information,
+.order-payment-method,
+.order-comments-history {
+    float: left;
+    width: calc((100%) * 0.5 - 0px);
+}
+
+.order-subtotal-table tfoot {
+    border-top: solid 1px #e3e3e3;
+}
+
+.order-items-table td.col-sku,
+.order-items-table td.col-product {
+    white-space: nowrap
+}
+
+.accordion,
+.accordion-group:last-child {
+    margin-bottom: 0;
+}
+
+

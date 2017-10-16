@@ -1,0 +1,32 @@
+{
+  "name": "Magento 2 Connector",
+  "author": {
+    "name": "Wagento Creative LLC ©",
+    "email": "support@wagento.com",
+    "url": "https://wagento.com/"
+  },
+  "defaultLocale": "en",
+  "private": false,
+  "location": {
+    "support": {
+      "ticket_sidebar": "assets/iframe.html"
+    }
+  },
+  "parameters": [
+    {
+      "name": "domain",
+      "type": "text",
+      "required": true
+    },
+    {
+      "name": "token",
+      "type": "password",
+      "required": true
+    }
+  ],
+  "domainWhitelist": [
+    "{{setting.domain}}"
+  ],
+  "version": "1.0",
+  "frameworkVersion": "2.0"
+}
