@@ -22,6 +22,11 @@
       "name": "token",
       "type": "password",
       "required": true
+    },
+    {
+      "name": "orderfield",
+      "type": "text",
+      "required": true
     }
   ],
   "domainWhitelist": [

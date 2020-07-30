@@ -8,32 +8,70 @@ $(function () {
     showLoadingInformation();
     resizeWidget(client);
 
+    /*
+    // OLD Customer data
     client.get('ticket.requester.email').then(
         function (data) {
             var email = data["ticket.requester.email"];
             getCustomerOrderInfo(client, email);
         }
+    );*/
+
+    // Get WidgetConfigs
+    client.metadata().then(
+        function (config) {
+            getCustomerOrderList(client, config.settings);
+        }
     );
 });
 
+function getCustomerOrderList(client, config) {
+    var orderField = config.orderfield, 
+    emailFldName = "ticket.requester.email",
+    orderFldName = "ticket.customField:custom_field_",
+    fields = [emailFldName];
+
+    if(!isNaN(orderField)) {
+        orderFldName += orderField;
+        fields.push(orderFldName);
+    }
+    client.get(fields).then(
+        function (data) {
+            var email = data[emailFldName],
+            orderIncrementId = data[orderFldName];
+            getM2CustomerOrder(client, email, config)
+        }
+    );
+}
+
+
+// OLD
 function getCustomerOrderInfo(client, email) {
     client.metadata().then(
         function (config) {
+            console.log("======= getCustomerOrderInfo =======")
+            console.log(config)
             getM2CustomerOrder(client, email, config.settings);
         }
     );
 }
 
 function getM2CustomerOrder(client, email, config) {
-    var m2domain = config.domain, m2token = config.token;
+    // var m2domain = config.domain, m2token = config.token;
+
+    var m2domain = 'http://127.0.0.1/zd24o/', 
+    m2token = 'fdx0jtouvov4jppiufc4663ifel3pn7l',
+    orderfield = '360010492273';
 
     var settings = {
         url: m2domain + 'rest/V1/customerorder/' + email,
         headers: {"Authorization": "Bearer " + m2token},
         type: 'GET',
         contentType: 'application/json',
-        dataType: 'json'
+        dataType: 'json',
+        cors: true
     };
+
     client.request(settings).then(
         function (data) {
             showCustomerOrderInfo(data, client);
