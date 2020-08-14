@@ -31,22 +31,222 @@
                     <th>Email</th>
                     <td><a href="mailto:{{email}}">{{email}}</a></td>
                 </tr>
+                {{#if lifetime_sales }}
                 <tr>
                     <th>Lifetime Sales</th>
                     <td>{{lifetime_sales}}</td>
                 </tr>
+                {{/if}}
+                {{#if group }}
                 <tr>
                     <th>Customer Group</th>
                     <td>{{group}}</td>
                 </tr>
+                {{/if}}
+                {{#if created_at }}
                 <tr>
                     <th>Customer Since</th>
                     <td>{{created_at}}</td>
                 </tr>
+                {{/if}}
+                {{#if telephone }}
+                <tr>
+                    <th>Telephone</th>
+                    <td>{{telephone}}</td>
+                </tr>
+                {{/if}}
                 </tbody>
             </table>
         </div>
     </div>
+
+
+    {{#if zd_order}}
+    <div class="section" id="order-information">
+        <div class="section-title">
+            <i class="fa fa-shopping-cart fa-lg user-icon" aria-hidden="true"></i>
+            <span class="title">Linked Order</span>
+        </div>
+        <div class="section-item-content">
+            {{#each zd_order}}
+            <div class="accordion-heading">
+                <div class="accordion-toggle" data-toggle="collapse" data-parent="#orders-accordion"
+                     data-target="#collapse{{increment_id}}">
+                    {{#if url}} <a href="{{url}}" target="_blank"><i class="fa fa-external-link"></i></a>{{/if}}
+                    <strong>#{{increment_id}}</strong>
+                    {{#if status}}<span class="badge badge-info">{{status}}</span>{{/if}}
+                </div>                
+            </div>
+            <div class="accordion-inner">
+                <div class="section">
+                    <div class="section-item">
+                        <div class="section-item-title">
+                            <i class="fa fa-tags" aria-hidden="true"></i>
+                            <span class="title">Tags</span>
+                        </div>
+                        <div class="section-item-content">
+                            <span class="badge badge-warning">{{created_at}}</span>
+                            <span class="badge badge-warning">{{store_name}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="section">
+                    {{#if billing_address}}
+                    <div class="section-item order-billing-address">
+                        <div class="section-item-title">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                            <span class="title">Billing Address</span>
+                        </div>
+                        <div class="section-item-content">
+                            {{{billing_address}}}
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    {{#if shipping_address}}
+                    <div class="section-item order-shipping-address">
+                        <div class="section-item-title">
+                            <i class="fa fa-address-book" aria-hidden="true"></i>
+                            <span class="title">Shipping Address</span>
+                        </div>
+                        <div class="section-item-content">
+                            {{{shipping_address}}}
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+                
+                <div class="section">
+                    {{#if payment_method}}
+                    <div class="section-item order-payment-method">
+                        <div class="section-item-title">
+                            <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                            <span class="title">Payment Method</span>
+                        </div>
+                        <div class="section-item-content">
+                            {{payment_method}}
+                        </div>
+                    </div>
+                    {{/if}}
+
+                    {{#if shipping_method}}
+                    <div class="section-item order-shipping-method">
+                        <div class="section-item-title">
+                            <i class="fa fa-truck" aria-hidden="true"></i>
+                            <span class="title">Shipping Method</span>
+                        </div>
+                        <div class="section-item-content">
+                            {{shipping_method}}
+                        </div>
+                    </div>
+                    {{/if}}
+                </div>
+
+            
+                {{#if grand_total}}
+                <div class="section">
+                    <div class="section-item order-totals">
+                        <div class="section-item-title">
+                            <i class="fa fa-money" aria-hidden="true"></i>
+                            <span class="title">Order Totals</span>
+                        </div>
+                        <table class="data-table table-secondary order-subtotal-table">
+                            <tfoot>
+                            <tr class="col-0">
+                                <td><strong>Grand Total</strong></td>
+                                <td><strong>{{grand_total}}</strong></td>
+                            </tr>
+                            <tr class="col-1">
+                                <td><strong>Total Paid</strong></td>
+                                <td><strong>{{total_paid}}</strong></td>
+                            </tr>
+                            <tr class="col-2">
+                                <td><strong>Total Refunded</strong></td>
+                                <td><strong>{{total_refunded}}</strong></td>
+                            </tr>
+                            <tr class="col-3">
+                                <td><strong>Total Due</strong></td>
+                                <td><strong>{{total_due}}</strong></td>
+                            </tr>
+                            </tfoot>
+                            
+
+                            {{#if subtotal}}
+                            <tbody>
+                            <tr class="col-0">
+                                <td>Subtotal</td>
+                                <td><span>{{subtotal}}</span></td>
+                            </tr>
+                            <tr class="col-1">
+                                <td>Shipping &amp; Handling</td>
+                                <td><span>{{shipping_amount}}</span></td>
+                            </tr>
+                            <tr class="col-2">
+                                <td>Discount</td>
+                                <td><span>{{discount_amount}}</span></td>
+                            </tr>
+                            <tr class="col-3">
+                                <td>Tax</td>
+                                <td><span>{{tax_amount}}</span></td>
+                            </tr>
+                            </tbody>
+                            {{/if}}
+                        </table>
+                    </div>
+                </div>
+                {{/if}}
+
+                {{#if items}}
+                <div class="section">
+                    <div class="section-item-title">
+                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                        <span class="title">Items Ordered</span>
+                    </div>
+                    <div class="table-wrapper">
+                        <table class="table data-table table-primary order-items-table">
+                            <thead>
+                            <tr class="headings">
+                                <th class="col-product"><span>Product</span></th>
+                                <th class="col-sku"><span>Sku</span></th>
+                                <th class="col-status"><span>Status</span></th>
+                                <th class="col-price-original"><span>Original Price</span></th>
+                                <th class="col-price"><span>Price</span></th>
+                                <th class="col-ordered-qty"><span>Qty</span></th>
+                                <th class="col-subtotal"><span>Subtotal</span></th>
+                                <th class="col-tax-amount"><span>Tax Amount</span></th>
+                                <th class="col-tax-percent"><span>Tax Percent</span></th>
+                                <th class="col-discont"><span>Discount Amount</span></th>
+                                <th class="col-total last"><span>Row Total</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each items}}
+                            <tr>
+                                <td class="col-product">{{name}}</td>
+                                <td class="col-sku">{{sku}}</td>
+                                <td class="col-status">{{status}}</td>
+                                <td class="col-price-original">{{original_price}}</td>
+                                <td class="col-price">{{price}}</td>
+                                <td class="col-ordered-qty">{{qty_ordered}}</td>
+                                <td class="col-subtotal">{{subtotal}}</td>
+                                <td class="col-tax-amount">{{tax_amount}}</td>
+                                <td class="col-tax-percent">{{tax_percent}}%</td>
+                                <td class="col-discont">{{discount}}</td>
+                                <td class="col-total last">{{total}}</td>
+                            </tr>
+                            {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                {{/if}}
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    {{/if}}
 
     <div class="section" id="order-information">
 
@@ -64,8 +264,9 @@
                         <div class="accordion-heading">
                             <div class="accordion-toggle" data-toggle="collapse" data-parent="#orders-accordion"
                                  data-target="#collapse{{increment_id}}">
+                                {{#if url}} <a href="{{url}}" target="_blank"><i class="fa fa-external-link"></i></a>{{/if}}
                                 <strong>#{{increment_id}}</strong>
-                                <span class="badge badge-info">{{status}}</span>
+                                {{#if status}}<span class="badge badge-info">{{status}}</span>{{/if}}
                             </div>
                         </div>
 
@@ -84,8 +285,10 @@
                                         </div>
                                     </div>
                                 </div>
-
+                                
+                                
                                 <div class="section">
+                                    {{#if billing_address}}
                                     <div class="section-item order-billing-address">
                                         <div class="section-item-title">
                                             <i class="fa fa-address-book" aria-hidden="true"></i>
@@ -95,7 +298,9 @@
                                             {{{billing_address}}}
                                         </div>
                                     </div>
+                                    {{/if}}
 
+                                    {{#if shipping_address}}
                                     <div class="section-item order-shipping-address">
                                         <div class="section-item-title">
                                             <i class="fa fa-address-book" aria-hidden="true"></i>
@@ -105,9 +310,13 @@
                                             {{{shipping_address}}}
                                         </div>
                                     </div>
+                                    {{/if}}
                                 </div>
-
+                                
+                                
+                                
                                 <div class="section">
+                                    {{#if payment_method}}
                                     <div class="section-item order-payment-method">
                                         <div class="section-item-title">
                                             <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
@@ -117,7 +326,9 @@
                                             {{payment_method}}
                                         </div>
                                     </div>
+                                    {{/if}}
 
+                                    {{#if shipping_method}}
                                     <div class="section-item order-shipping-method">
                                         <div class="section-item-title">
                                             <i class="fa fa-truck" aria-hidden="true"></i>
@@ -127,8 +338,11 @@
                                             {{shipping_method}}
                                         </div>
                                     </div>
+                                    {{/if}}
                                 </div>
+                                
 
+                                {{#if grand_total}}
                                 <div class="section">
                                     <div class="section-item order-totals">
                                         <div class="section-item-title">
@@ -153,9 +367,10 @@
                                                 <td><strong>Total Due</strong></td>
                                                 <td><strong>{{total_due}}</strong></td>
                                             </tr>
-
                                             </tfoot>
+                                            
 
+                                            {{#if subtotal}}
                                             <tbody>
                                             <tr class="col-0">
                                                 <td>Subtotal</td>
@@ -174,10 +389,13 @@
                                                 <td><span>{{tax_amount}}</span></td>
                                             </tr>
                                             </tbody>
+                                            {{/if}}
                                         </table>
                                     </div>
                                 </div>
+                                {{/if}}
 
+                                {{#if items}}
                                 <div class="section">
                                     <div class="section-item-title">
                                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
@@ -220,6 +438,7 @@
                                         </table>
                                     </div>
                                 </div>
+                                {{/if}}
                             </div>
                         </div>
                     </div>

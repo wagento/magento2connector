@@ -39,7 +39,7 @@ function getCustomerOrderList(client, config) {
         function (data) {
             var email = data[emailFldName],
             orderIncrementId = data[orderFldName];
-            getM2CustomerOrder(client, email, config)
+            getM2CustomerOrder(client, email, config, orderIncrementId)
         }
     );
 }
@@ -56,15 +56,17 @@ function getCustomerOrderInfo(client, email) {
     );
 }
 
-function getM2CustomerOrder(client, email, config) {
+function getM2CustomerOrder(client, email, config, orderIncrementId) {
     // var m2domain = config.domain, m2token = config.token;
 
     var m2domain = 'http://127.0.0.1/zd24o/', 
     m2token = 'fdx0jtouvov4jppiufc4663ifel3pn7l',
     orderfield = '360010492273';
+    
+    console.log(orderIncrementId)
 
     var settings = {
-        url: m2domain + 'rest/V1/customerorder/' + email,
+        url: m2domain + 'rest/V1/customerorder/' + email + '?order=' + orderIncrementId,
         headers: {"Authorization": "Bearer " + m2token},
         type: 'GET',
         contentType: 'application/json',
